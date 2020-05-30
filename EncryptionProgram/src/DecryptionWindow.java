@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Font;
-
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -58,11 +59,67 @@ public class DecryptionWindow {
 				DecryptedText.setBounds(399, 53, 136, 27);
 				window.getContentPane().add(DecryptedText);
 				
-				JButton DeBtn = new JButton("");
+				JButton DeBtn = new JButton("De");
 				DeBtn.setIcon(new ImageIcon("C:\\Users\\Admin\\Pictures\\Change3.png"));
 				DeBtn.setForeground(new Color(255, 0, 0));
 				DeBtn.setFont(new Font("Cambria", Font.PLAIN, 14));
 				DeBtn.setBounds(310, 125, 77, 44);
+				DeBtn.addActionListener(new ActionListener()
+				{
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
+						try 
+						{
+							String ques = Text1.getText();
+        					String[] word = ques.split("\\s");
+        					String ans = "";
+        					for (String st : word) 
+        					{
+            					String add = "";
+            					int index = -1;
+            					String res = "";
+            					for(int i=0;i<st.length();i++)
+           						{
+                					if((int)st.charAt(i)>=48 && (int)st.charAt(i)<=57)
+                					{
+                    					add = add + st.charAt(i);
+                    					index++;
+                					}
+            					}
+            					int converToInt = Integer.parseInt(add);
+            					char convertToChar = (char)converToInt;
+            					res = res + convertToChar; 
+            					for(int i= index+1;i<st.length();i++)
+            					{
+                					if(i==index+1)
+                					{
+                    					res = res + st.charAt(st.length()-1);
+                					}
+                					else if(i== st.length()-1)
+                					{
+                    					res = res + st.charAt(index+1);
+                					}
+                					else
+                					{
+                   				 		res = res + st.charAt(i);
+                					}
+            					}
+            					if(ans=="")
+            					{
+                					ans = ans + res;
+            					}
+            					else
+            					{
+               	 					ans = ans + " " + res;
+								}
+								Text2.setText(ans);  
+        }
+						} catch (Exception e1) {
+							//TODO: handle exception
+						}
+					}
+				});
 				window.getContentPane().add(DeBtn);
 				window.setLocationRelativeTo(null);
 				

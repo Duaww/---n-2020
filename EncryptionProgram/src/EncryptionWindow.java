@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Font;
-
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -58,11 +59,60 @@ public class EncryptionWindow {
 				EncryptedText.setBounds(399, 53, 136, 27);
 				window.getContentPane().add(EncryptedText);
 				
-				JButton EnBtn = new JButton("");
+				JButton EnBtn = new JButton("En");
 				EnBtn.setIcon(new ImageIcon("C:\\Users\\Admin\\Pictures\\Change3.png"));
 				EnBtn.setForeground(new Color(255, 0, 0));
 				EnBtn.setFont(new Font("Cambria", Font.PLAIN, 14));
 				EnBtn.setBounds(310, 125, 77, 44);
+				EnBtn.addActionListener(new ActionListener()
+				{
+					@Override
+					public void actionPerformed(ActionEvent e)
+					{
+						try 
+						{
+							String ques = Text1.getText();
+							String[] word = ques.split("\\s");
+							String ans = "";
+							for (String st : word) 
+							{
+								String res = "";
+								for(int i=0;i<st.length();i++)
+								{
+									
+									if(i==0)
+									{
+										res = res + Integer.toString((int)st.charAt(i));
+									}
+									else if (i==1)
+									{
+										res = res + st.charAt(st.length()-1);
+									}
+									else if(i==st.length()-1)
+									{
+										res = res + st.charAt(1);
+									}
+									else
+									{
+										res = res + st.charAt(i);
+									}
+								} 
+								if(ans=="")
+								{
+									ans = ans + res;
+								}
+								else
+								{
+									ans = ans + " " + res;
+								}  
+							}
+							Text2.setText(ans);
+		
+						} catch (Exception e1) {
+							//TODO: handle exception
+						}
+					}
+				});
 				window.getContentPane().add(EnBtn);
 				window.setLocationRelativeTo(null);
 				
